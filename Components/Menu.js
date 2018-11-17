@@ -6,6 +6,8 @@ import {ImagePicker , Permissions} from 'expo';
 import Unlock from './Unlock.js'
 import {registerCarPlateService} from '../services/registerCarPlateService.js'
 import {bookParkingService} from '../services/bookParkingService.js'
+import Unlock from './Unlock.js';
+import RentPark from './RentPark';
 
 const url = "https://lpr.recoqnitics.com/detect"
 const access_key = "8044c46d33a99d066ace"
@@ -111,8 +113,8 @@ class Menu extends React.Component {
     return (
       <View style={styles.container}>
         <Button title = "Book a car park" onPress = {() => {
-          navigate('RentPark')
           bookParkingService('parking01',1)
+          this.props.navigation.navigate('RentPark')
         }}/>      
         <View>
           {this.state.isBooked ? showUnlock: null}
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
 const MenuNavigator = createStackNavigator({
   Menu: {screen: Menu},
   Unlock: {screen: Unlock},
-  // RentPark: {screen: RentPark},
+  RentPark: {screen: RentPark},
 })
 
 export default MenuNavigator
