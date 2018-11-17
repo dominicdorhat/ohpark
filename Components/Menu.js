@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
+import { StyleSheet, Text, View, Button ,Alert} from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {ImagePicker , Permissions} from 'expo';
 
@@ -56,6 +56,8 @@ class Menu extends React.Component {
 
       console.log(result)
 
+      //if selected a photo , do the appropriate API request
+      if(!result.cancelled){
       var image = {
         uri: result.uri,
         type: 'image/jpg',
@@ -71,9 +73,32 @@ class Menu extends React.Component {
         body: formData
       })
         .then(response => response.json())
-        .then(json => console.log(json))
-    }     
+        .then(json => {
+          console.log(json)
+          if(json.licensePlates.length!=0)
+          {
+           Alert.alert(
+            'Success',
+            'You have successfully registered your car plate!',
+            [
+              {text: 'Ok'}
+            ],
+          ) 
+          }
+          else
+          {
+            Alert.alert(
+              'Failure',
+              'You have failed registering your car plate!',
+              [
+                {text:'Ok'}
+              ],
+            )         
+          }
+        })
+      }
 
+    }     
   }
 
   render() {
