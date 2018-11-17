@@ -12,13 +12,14 @@ alert = () => {
 		'Parking Unlocked',
 		'You may now leave the parking spot..',
 		[
+			{text: 'Cancel' , onPress:() =>console.log('CANCEL')},
 			{text:'Ok' , onPress:()=>{
 				parkingUnlocked()
 				this.props.navigation.navigate("Menu")
 				}
 			},
-			{text: 'Cancel' , onPress:() =>console.log('CANCEL')},
-		]
+		],
+		{cancelable:false}
 		)
 }
 
