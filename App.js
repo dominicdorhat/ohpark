@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, Image, TextInput, KeyboardAvoidingView, Button 
 import { createStackNavigator , createAppContainer} from 'react-navigation';
 
 import Icon from './assets/park1.jpg';
-import Menu from './Components/Menu.js'
+import MenuNavigator from './Components/Menu.js'
+
 
 class Login extends React.Component {
   constructor(props){
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
 const AppNavigator = createStackNavigator({
   Login: {screen: Login ,
    navigationOptions : {header:null,}},
-  Menu: {screen: Menu},
+  Menu: {screen: MenuNavigator ,
+    navigationOptions: {header:null,}},
   // RentPark: {screen: RentPark},
 })
 

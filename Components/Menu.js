@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Button} from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {ImagePicker , Permissions} from 'expo';
 
+import Unlock from './Unlock.js'
+
 const url = "https://lpr.recoqnitics.com/detect"
 const access_key = "8044c46d33a99d066ace"
 const secret_key = "4705011ce68297849185e18c15ab2413d1019ebc"
@@ -22,7 +24,7 @@ class Menu extends React.Component {
   };
   
   __gotoUnlock = () => {
-    console.log("Unlock UI");
+    this.props.navigation.navigate('Unlock')
   }
 
   __gotoRegister = () => {
@@ -95,6 +97,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Menu
+const MenuNavigator = createStackNavigator({
+  Menu: {screen: Menu},
+  Unlock: {screen: Unlock},
+  // RentPark: {screen: RentPark},
+})
+
+export default MenuNavigator
 
 
