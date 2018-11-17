@@ -33,7 +33,7 @@ class Login extends React.Component {
           />
         </View>
         <View style={styles.row1}>
-          <Button title="GO!"/>
+          <Button title="GO!" onPress={this.__gotoMenu}/>
         </View>
       </View>
     );
