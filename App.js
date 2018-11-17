@@ -1,53 +1,43 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { StyleSheet, Text, View, Image, TextInput, KeyboardAvoidingView, Button } from 'react-native';
+import { createStackNavigator , createAppContainer} from 'react-navigation';
 
-const API_URL = 'https://lpr.recoqnitics.com/detect';
-const ACCESS_KEY = '8044c46d33a99d066ace';
-const SECRET_KEY = '4705011ce68297849185e18c15ab2413d1019ebc';
+import Icon from './assets/park1.jpg';
+import Menu from './Components/Menu.js'
 
-
-class Menu extends React.Component {
-  constructor(props) {
+class Login extends React.Component {
+  constructor(props){
     super(props);
-
     this.state = {
-      isBooked : true,
+      phone_no: '',
     }
   }
-
-  static navigationOptions = {
-    title: 'Welcome'
-  };
   
-  __gotoUnlock = () => {
-    console.log("Unlock UI");
-  }
-
-  __gotoRegister = () => {
-    console.log("Register");
+  __gotoMenu = () => {
+    this.props.navigation.navigate('Menu');
   }
 
   render() {
-    const showUnlock = <Button title = "Unlock car park" onPress = {this.__gotoUnlock}></Button>;
-    const { navigate } = this.props.navigation;
-
     return (
-      <View style={styles.container}>
-        <Button title = "Book a car park" onPress = {() => navigate('RentPark')}/>      
-        <View>
-          {this.state.isBooked ? showUnlock: null}
+      <KeyboardAvoidingView style={styles.container} enabled>
+        <Image source={Icon}/>
+        <Text>Oh Park !!!</Text>
+        <View style={styles.row}>
+          <Text>Phone No:</Text>
+          <TextInput 
+              placeholder = "phone number"
+              placeholderTextColor = 'rgba(0,122,0,0.5)'
+              returnKeyType = 'next'
+              onChangeText={ (x)=>this.setState({phone_no:x}) }
+          />
         </View>
-        <Button title="Register car plate" onPress={this.__gotoRegister} />      
-      </View>
+        <View style={styles.container}>
+          <Button title="GO!" onPress={this.__gotoMenu}/>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
-
-const AppNavigator = createStackNavigator({
-  Menu: {screen: Menu},
-  // RentPark: {screen: RentPark},
-})
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +46,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  row: {
+    flexDirection: 'row',
+  },
+  row1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
+
+const AppNavigator = createStackNavigator({
+  Login: {screen: Login ,
+   navigationOptions : {header:null,}},
+  Menu: {screen: Menu},
+  // RentPark: {screen: RentPark},
+})
 
 export default createAppContainer(AppNavigator);
