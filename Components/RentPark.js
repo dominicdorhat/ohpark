@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, Dimensions, Picker, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Picker, TouchableOpacity, TouchableHighlight, Alert } from 'react-native';
 import { Constants } from 'expo';
+import { Button } from 'react-native-elements';
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -10,7 +11,7 @@ let startTime = '';
 let endTime = '';
 
 
-export default class Header extends React.Component {
+class RentPark extends React.Component {
     constructor(props) {
         super(props);
 
@@ -19,6 +20,7 @@ export default class Header extends React.Component {
             isEndTimePickerVisible: false,
             startingTime: '',
             endingTime: '',
+            opacity: 0,
         }
     }
 
@@ -97,30 +99,58 @@ export default class Header extends React.Component {
     render() {
         return (
             <View style={styles.container} >
-                <Text>Location: </Text>
-                <Image />
-                <TouchableOpacity onPress={this._showInitialTimePicker}>
-                    <Text>Intial date and time : </Text>
-                </TouchableOpacity>
-                <DateTimePicker
-                    mode='time'
-                    isVisible={this.state.isInitialTimePickerVisible}
-                    onConfirm={this._handleInitialTimePicked}
-                    onCancel={this._hideInitialTimePicker}
-                />
+                    <Image
+                    style={{ width: SCREEN_WIDTH, height: 200, marginBottom:20 }}
+                    source ={require('../assets/carplan.jpg')}/>
 
-                <TouchableOpacity onPress={this._showEndTimePicker}>
-                    <Text>End Time: </Text>
-                </TouchableOpacity>
-                <DateTimePicker
-                    mode='time'
-                    isVisible={this.state.isEndTimePickerVisible}
-                    onConfirm={this._handleEndTimePicked}
-                    onCancel={this._hideEndTimePicker}
-                />
+                <View style={styles.row}>          
+                    <TouchableHighlight 
+                        style = {styles.outlineButton} 
+                        onPress= {this._showInitialTimePicker}
+                        underlayColor= "#2e86de"
+                        activeOpacity= {this.state.opacity} >
+                        <Text styles = {styles.submitText}>Start Time </Text>
+                    </TouchableHighlight>
+   
+                    <DateTimePicker
+                        mode='time'
+                        isVisible={this.state.isInitialTimePickerVisible}
+                        onConfirm={this._handleInitialTimePicked}
+                        onCancel={this._hideInitialTimePicker}
+                    />
 
-                <Button title="BOOK" onPress={this._saveState}></Button>
-            
+                    </View>
+
+                    <View style = {styles.row}>
+                        <TouchableHighlight
+                            style={styles.outlineButton}
+                            onPress={this._showEndTimePicker}
+                            underlayColor="#2e86de"
+                            activeOpacity={this.state.opacity} >
+                            <Text styles={styles.submitText}>End Time </Text>
+                        </TouchableHighlight>
+                        <DateTimePicker
+                            mode='time'
+                            isVisible={this.state.isEndTimePickerVisible}
+                            onConfirm={this._handleEndTimePicked}
+                            onCancel={this._hideEndTimePicker}
+                        />
+                        </View>
+
+                    <View style = {styles.row}>
+                        <Button title="BOOK" 
+                        onPress={
+                            () => {
+                                this._saveState
+                                this.props.navigation.navigate('Menu')
+                                }
+                            } 
+                        buttonStyle = {{
+                            backgroundColor: "#2e86de",
+                            borderRadius: 70,
+                            height: 50, 
+                            width: 300,}}/> 
+                </View>  
             </View>
 
         );
@@ -132,20 +162,35 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         // sets top padding to follow status bar 
-        paddingTop: Constants.statusBarHeight,
+        // paddingTop: Constants.statusBarHeight,
         marginBottom: 0,
 
     },
 
     row: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        borderWidth: 1,
-        borderColor: 'black',
-        height: 40,
-        padding: 10,
-        alignItems: 'center',
+        marginBottom: 15,
+        marginTop: 15,        
+        paddingRight: 70,
+        paddingLeft: 70,
+        alignItems: "center",
+    },
 
+    outlineButton: {
+        paddingRight: 20,
+        paddingLeft: 20,
+        paddingTop: 20,
+        paddingBottom: 20,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#2e86de'
+    },
+
+    submitText: {
+        color: '#fff',
+        textAlign: 'center',
     },
 });
+
+export default RentPark
 
