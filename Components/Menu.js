@@ -4,6 +4,8 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {ImagePicker , Permissions} from 'expo';
 
 import Unlock from './Unlock.js'
+import {registerCarPlateService} from '../services/registerCarPlateService.js'
+import {bookParkingService} from '../services/bookParkingService.js'
 
 const url = "https://lpr.recoqnitics.com/detect"
 const access_key = "8044c46d33a99d066ace"
@@ -77,6 +79,7 @@ class Menu extends React.Component {
           console.log(json)
           if(json.licensePlates.length!=0)
           {
+           registerCarPlateService(json.licensePlates[0].licensePlateNumber)
            Alert.alert(
             'Success',
             'You have successfully registered your car plate!',
@@ -107,7 +110,10 @@ class Menu extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Button title = "Book a car park" onPress = {() => navigate('RentPark')}/>      
+        <Button title = "Book a car park" onPress = {() => {
+          navigate('RentPark')
+          bookParkingService('parking01',1)
+        }}/>      
         <View>
           {this.state.isBooked ? showUnlock: null}
         </View>

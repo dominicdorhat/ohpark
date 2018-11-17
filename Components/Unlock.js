@@ -1,5 +1,6 @@
 import React from 'react' ;
 import { StyleSheet, Text, View, Button , Alert} from 'react-native';
+import { bookParkingService } from '../services/bookParkingService.js'
 
 class Unlock extends React.Component{
 constructor(props){
@@ -15,6 +16,7 @@ alert = () => {
 			{text: 'Cancel' , onPress:() =>console.log('CANCEL')},
 			{text:'Ok' , onPress:()=>{
 				parkingUnlocked()
+				bookParkingService('parking01',0)
 				this.props.navigation.navigate("Menu")
 				}
 			},
