@@ -1,11 +1,12 @@
 import React from 'react' ;
-import { StyleSheet, Text, View, Button , Alert} from 'react-native';
+import { StyleSheet, Text, View, Button , Alert, TouchableOpacity} from 'react-native';
 import { bookParkingService } from '../services/bookParkingService.js'
 
+
 class Unlock extends React.Component{
-constructor(props){
-	super(props)
-}
+	constructor(props){
+		super(props)
+	}
 
 alert = () => {
 	parkingUnlocked = this.props.navigation.getParam('parkingUnlocked',null)
@@ -23,16 +24,35 @@ alert = () => {
 		],
 		{cancelable:false}
 		)
-}
-
-render(){
-	return(
-		<View>
-			<Button title="Unlock" onPress={this.alert}/>
-		</View>		
+	}
+	render(){
+		return(
+			<View style={styles.container}>
+				<TouchableOpacity style={styles.row} onPress={this.alert}>
+					<Text style={{fontWeight: 'bold', fontSize: 30, color: 'white', textAlign: 'center'}}>
+						Unlock !
+					</Text>
+				</TouchableOpacity>
+			</View>		
 		)
+	}
 }
 
-}
+const styles = StyleSheet.create({
+	container: {
+		backgroundColor: '#fff',
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingTop: 160,
+	  },
+	  row: {
+		backgroundColor: '#2ecc71',
+		justifyContent: 'center',
+		borderRadius: 70,
+		paddingVertical: 25,
+		paddingRight: 70,
+		paddingLeft: 70,
+	  },
+  });
 
 export default Unlock

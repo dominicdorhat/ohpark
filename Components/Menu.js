@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button ,Alert} from 'react-native';
+import { StyleSheet, Text, View, Button, Alert,TouchableOpacity} from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {ImagePicker , Permissions} from 'expo';
 
@@ -7,6 +7,7 @@ import Unlock from './Unlock.js'
 import {registerCarPlateService} from '../services/registerCarPlateService.js'
 import {bookParkingService} from '../services/bookParkingService.js'
 import RentPark from './RentPark';
+import LocationPrompt from './LocationPrompt.js'
 
 const url = "https://lpr.recoqnitics.com/detect"
 const access_key = "8044c46d33a99d066ace"
@@ -104,43 +105,70 @@ class Menu extends React.Component {
 
     }     
   }
-
+ 
   render() {
-    const showUnlock = <Button title = "Unlock car park" onPress = {this.__gotoUnlock}></Button>;
+    const showUnlock = 
+      <TouchableOpacity style={styles.row} onPress = {this.__gotoUnlock}>
+        <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>
+          Unlock Car Park 
+        </Text>
+      </TouchableOpacity> ;   
     const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.container}>
         <Button title = "Book a car park" onPress = {() => {
-          bookParkingService('parking01',1)
+          
           this.props.navigation.navigate('RentPark')
         }}/>      
+        <TouchableOpacity style={styles.row} onPress = {() => {
+          navigate('LocationPrompt')
+          bookParkingService('parking01',1)
+          }
+          }>
+          <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>
+            Book a Car Park  
+          </Text>
+        </TouchableOpacity>      
         <View>
           {this.state.isBooked ? showUnlock: null}
         </View>
-        <Button title="Register car plate" onPress={this.__gotoRegister} />      
+        <TouchableOpacity style={styles.row} onPress={this.__gotoRegister}>
+          <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>
+            Register Car Plate
+          </Text>
+        </TouchableOpacity>      
       </View>
     );
   }
 }
 
 
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 120,
+  },
+  row: {
+    backgroundColor: '#2e86de',
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginBottom: 22,
+    marginLeft: 10,
+    marginRight: 10,
+    paddingVertical: 25,
+    paddingRight: 70,
+    paddingLeft: 70,
   },
 });
 
 const MenuNavigator = createStackNavigator({
   Menu: {screen: Menu},
   Unlock: {screen: Unlock},
-  RentPark: {screen: RentPark},
+  LocationPrompt: {screen: LocationPrompt},
 })
 
 export default MenuNavigator
-
 
