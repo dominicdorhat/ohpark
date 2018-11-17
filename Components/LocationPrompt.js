@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import RentPark from './RentPark.js';
 
 import { createStackNavigator } from 'react-navigation';
 
@@ -13,11 +14,11 @@ class LocationPrompt extends React.Component {
   // _register = () => {
   //   this.props.navigation.navigate('CompleteRegister');
   // }
-  render() {
+  render() {    
     return (
       <View style={styles.container}>
         <View style={styles.row}>
-          <Text style={{paddingLeft: 15, fontSize:30, fontStyle: 'Roboto', fontWeight: 'bold'}}>
+          <Text style={{paddingLeft: 15, fontSize:30, fontFamily: 'Roboto', fontWeight: 'bold'}}>
             Insert Location
           </Text>
         </View>
@@ -34,13 +35,15 @@ class LocationPrompt extends React.Component {
             Choose type of parking period: 
           </Text>
         </View>
-        <TouchableOpacity style={styles.row3}>
-          <Text style={{fontSize: '18', fontWeight: 'bold', color: 'white', textAlign: 'center'}}>
+        {/* <TouchableOpacity style={styles.row3}>
+          <Text style={{fontSize: 18, fontWeight: 'bold', color: 'white', textAlign: 'center'}}>
             Long term
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.row3}>
-          <Text style={{fontSize: '18', fontWeight: 'bold', color: 'white', textAlign: 'center'}}>
+          </Text> */}
+        {/* </TouchableOpacity> */}
+        <TouchableOpacity style={styles.row3} onPress = {() =>  {
+          this.props.navigation.navigate('RentPark')
+        }}>
+          <Text style={{fontSize: 18, fontWeight: 'bold', color: 'white', textAlign: 'center'}}>
             Short term
           </Text>
         </TouchableOpacity>
@@ -93,23 +96,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LocationPrompt
+const LocationNavigator = createStackNavigator({
+  LocationPrompt: { screen: LocationPrompt },
+  RentPark: { screen: RentPark},
+})
 
-// {/* <TouchableOpacity style={styles.row4}>
-// <Text style={{fontSize: '22', fontWeight: 'bold', color: 'white', textAlign: 'center'}}>
-//   Continue !
-// </Text>
-// </TouchableOpacity> */}
 
-// row4: {
-//   justifyContent: 'center',
-//   backgroundColor: '#f1c40f',
-//   marginTop: 100,
-//   marginLeft: 80,
-//   marginRight: 80,
-//   borderBottomLeftRadius: 20,
-//   borderBottomRightRadius: 20,
-//   borderTopLeftRadius: 20,
-//   borderTopRightRadius: 20,
-//   paddingVertical: 20,
-// },
+export default LocationNavigator
