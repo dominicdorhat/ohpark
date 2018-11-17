@@ -6,7 +6,6 @@ import {ImagePicker , Permissions} from 'expo';
 import Unlock from './Unlock.js'
 import {registerCarPlateService} from '../services/registerCarPlateService.js'
 import {bookParkingService} from '../services/bookParkingService.js'
-import Unlock from './Unlock.js';
 import RentPark from './RentPark';
 
 const url = "https://lpr.recoqnitics.com/detect"
