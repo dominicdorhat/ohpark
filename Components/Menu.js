@@ -24,11 +24,17 @@ class Menu extends React.Component {
   };
   
   __gotoUnlock = () => {
-    this.props.navigation.navigate('Unlock')
+    this.props.navigation.navigate('Unlock' , {parkingUnlocked:this.parkingUnlocked})
   }
 
   __gotoRegister = () => {
     this.uploadCarPlatePicture();
+  }
+
+  parkingUnlocked = () => {
+    this.setState({
+      isBooked:false,
+    })
   }
 
   uploadCarPlatePicture = async() => {

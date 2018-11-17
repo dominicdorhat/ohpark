@@ -7,11 +7,16 @@ constructor(props){
 }
 
 alert = () => {
+	parkingUnlocked = this.props.navigation.getParam('parkingUnlocked',null)
 	Alert.alert(
 		'Parking Unlocked',
 		'You may now leave the parking spot..',
 		[
-			{text:'Ok' , onPress:()=>console.log('OK')},
+			{text:'Ok' , onPress:()=>{
+				parkingUnlocked()
+				this.props.navigation.navigate("Menu")
+				}
+			},
 			{text: 'Cancel' , onPress:() =>console.log('CANCEL')},
 		]
 		)
